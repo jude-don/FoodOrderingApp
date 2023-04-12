@@ -1,0 +1,15 @@
+package com.example.foodorderingapp.domain
+
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.google.gson.annotations.SerializedName
+
+
+
+data class Restaurant(
+    val id: Int,
+    val title: String,
+    val description: String,
+    var isFavorite: Boolean = false
+)
