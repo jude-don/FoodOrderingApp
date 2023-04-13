@@ -15,15 +15,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.foodorderingapp.domain.Restaurant
+import com.example.foodorderingapp.presentation.list.RestaurantsScreenState
 
 @Composable
-fun RestaurantsScreen(navController: NavController,onItemClick:(id:Int)->Unit) {
-    val viewModel:RestaurantsViewModel = viewModel()
-    val state = viewModel.state
+fun RestaurantsScreen( state: RestaurantsScreenState,
+                      onItemClick:(id:Int)->Unit,
+) {
+//    val viewModel:RestaurantsViewModel = viewModel()
+//    val state = viewModel.state
 //    var state by remember {
 //        mutableStateOf(viewModel.getRestaurants())
 //    }
@@ -40,8 +44,7 @@ fun RestaurantsScreen(navController: NavController,onItemClick:(id:Int)->Unit) {
         ) {
             items(state.restaurant) { restaurant ->
                 RestaurantItem(item = restaurant,
-                    onFavoriteClick = { id ->
-                        viewModel.toggleFavorite(id)
+                    onFavoriteClick = {
                     },
                     onItemClick = { id -> onItemClick(id) }
                 )
@@ -144,3 +147,12 @@ private fun RestaurantDetails(
 //            ColorFilter.tint(Color.Black)
 //    )
 //}
+@Preview(showBackground = true)
+@Composable
+fun DefaultPreview() {
+        RestaurantsScreen(
+            state = RestaurantsScreenState(listOf(), true),
+            onItemClick = {}
+        )
+}
+

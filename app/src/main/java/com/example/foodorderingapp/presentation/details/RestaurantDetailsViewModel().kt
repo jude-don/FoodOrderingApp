@@ -7,24 +7,23 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.foodorderingapp.data.local.LocalRestaurant
+import com.example.foodorderingapp.data.local.RestaurantsDao
 import com.example.foodorderingapp.data.local.RestaurantsDb
 import com.example.foodorderingapp.domain.Restaurant
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class RestaurantDetailsViewModel(
-    private val stateHandle: SavedStateHandle
+@HiltViewModel
+class RestaurantDetailsViewModel @Inject constructor(
+    private val stateHandle: SavedStateHandle,
+    private val restaurantsDao: RestaurantsDao
     ):ViewModel() {
 
     var state by mutableStateOf<Restaurant?>(null)
         private set
-
-
-    private var restaurantsDao = RestaurantsDb.getDaoInstance(
-        RestaurantsApplication.getAppContext()
-    )
-
 
 
     init {

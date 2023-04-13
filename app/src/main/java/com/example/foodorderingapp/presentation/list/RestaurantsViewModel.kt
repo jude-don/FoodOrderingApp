@@ -8,17 +8,15 @@ import com.example.foodorderingapp.data.RestaurantsRepository
 import com.example.foodorderingapp.domain.GetRestaurantsUseCase
 import com.example.foodorderingapp.domain.Restaurant
 import com.example.foodorderingapp.presentation.list.RestaurantsScreenState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
-
-sealed interface RestaurantState {
-    data class Success(val listOfRestaurants: List<Restaurant>) : RestaurantState
-    object Error : RestaurantState
-    object Loading : RestaurantState
-}
-
+import javax.inject.Inject
 const val TAG = "MainActivity"
 
-class RestaurantsViewModel(private val stateHandle: SavedStateHandle):ViewModel() {
+@HiltViewModel
+class RestaurantsViewModel @Inject constructor(
+    private val getRestaurantsUseCase: GetRestaurantsUseCase
+):ViewModel() {
 
    private var _state by mutableStateOf(
         RestaurantsScreenState(
@@ -30,10 +28,10 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle):ViewModel(
         get() = _state
 
     //Repository Instance
-    private val repository = RestaurantsRepository()
+//    private val repository = RestaurantsRepository()
 
     //GetRestaurantUseCase class
-    private val getRestaurantsUseCase = GetRestaurantsUseCase()
+//    private val getRestaurantsUseCase = GetRestaurantsUseCase()
 
 
     /** We have added an init block to instantiate the Retrofit builder
@@ -73,29 +71,29 @@ class RestaurantsViewModel(private val stateHandle: SavedStateHandle):ViewModel(
     }
 
 
-    private fun storeSelection(item: Restaurant) {
-        val savedToggled = stateHandle
-            .get<List<Int>?>(FAVORITES)
-            .orEmpty().toMutableStateList()
-        if (item.isFavorite) savedToggled.add(item.id)
-        else savedToggled.remove(item.id)
-        stateHandle[FAVORITES] = savedToggled
-    }
-
-    private fun List<Restaurant>.restoreSelections(): List<Restaurant> {
-        stateHandle.get<List<Int>?>(FAVORITES)?.let { selectedIds ->
-            val restaurantsMap = this.associateBy { it.id }
-            selectedIds.forEach { id ->
-                restaurantsMap[id]?.isFavorite = true
-            }
-            return restaurantsMap.values.toList()
-        }
-        return this
-    }
-
-    companion object {
-        const val FAVORITES = "favorites"
-    }
+//    private fun storeSelection(item: Restaurant) {
+//        val savedToggled = stateHandle
+//            .get<List<Int>?>(FAVORITES)
+//            .orEmpty().toMutableStateList()
+//        if (item.isFavorite) savedToggled.add(item.id)
+//        else savedToggled.remove(item.id)
+//        stateHandle[FAVORITES] = savedToggled
+//    }
+//
+//    private fun List<Restaurant>.restoreSelections(): List<Restaurant> {
+//        stateHandle.get<List<Int>?>(FAVORITES)?.let { selectedIds ->
+//            val restaurantsMap = this.associateBy { it.id }
+//            selectedIds.forEach { id ->
+//                restaurantsMap[id]?.isFavorite = true
+//            }
+//            return restaurantsMap.values.toList()
+//        }
+//        return this
+//    }
+//
+//    companion object {
+//        const val FAVORITES = "favorites"
+//    }
 
 
 }

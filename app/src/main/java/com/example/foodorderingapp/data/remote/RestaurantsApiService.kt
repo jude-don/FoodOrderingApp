@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-private const val  BASE_URL = "https://restaurantdb-59e77-default-rtdb.firebaseio.com/"
+const val  BASE_URL = "https://restaurantdb-59e77-default-rtdb.firebaseio.com/"
 
 /** The retrofit was instantied  by assigning a variable to the Retrofit.Builder accessor.
         * It was specified with the following.
@@ -28,7 +28,7 @@ interface RestaurantsApiService {
 
     @GET("restaurants.json?orderBy=\"r_id\"")
     suspend fun getRestaurants2(
-        @Query("equalTo") id: Int ):Map<String, RemoteRestaurant>
+        @Query("equalTo") id: Int ):Map<String, RemoteRestaurant >
 }
 
 

@@ -27,7 +27,7 @@ abstract class RestaurantsDb : RoomDatabase() { /** RestaurantsDb is an abstract
      * RestaurantsDao. Additionally, we can be sure that it's always the same memory reference and that no concurrency issues will occur
      * since we have wrapped the instance creation code inside a synchronized block. */
 
-    companion object{  /** Even though we declared a variable to hold our DAO object, we still need to find a way to build the database
+   /* companion object{  /** Even though we declared a variable to hold our DAO object, we still need to find a way to build the database
                            and obtain a reference to the RestaurantsDao instance that Room will create for us. Inside the RestaurantsDb
                            class, add companion object and then add the buildDatabase method: */
 
@@ -62,6 +62,6 @@ abstract class RestaurantsDb : RoomDatabase() { /** RestaurantsDb is an abstract
 
             .build()  /**build() on the builder object so that our buildDatabase() method returns a RestaurantsDb instance.*/
 
-    }
+    } */
 
 }

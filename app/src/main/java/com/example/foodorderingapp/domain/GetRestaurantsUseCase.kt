@@ -1,9 +1,12 @@
 package com.example.foodorderingapp.domain
 
 import com.example.foodorderingapp.data.RestaurantsRepository
+import javax.inject.Inject
 
-class GetRestaurantsUseCase {
-    private val repository: RestaurantsRepository = RestaurantsRepository()
+class GetRestaurantsUseCase @Inject constructor(
+    private val repository: RestaurantsRepository
+) {
+
 
     suspend operator fun invoke():List<Restaurant>{
         return repository.getAllRestaurants().sortedBy { it.title }

@@ -19,12 +19,13 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.foodorderingapp.domain.Restaurant
 
 @Composable
-fun MainDetailsScreen(){
-    val viewModel:RestaurantDetailsViewModel = viewModel()
-    val item = viewModel.state
-    if (item != null){
+fun MainDetailsScreen(state: Restaurant?){
+//    val viewModel:RestaurantDetailsViewModel = viewModel()
+//    val item = viewModel.state
+    if (state != null){
        Column(
            horizontalAlignment = Alignment.CenterHorizontally,
            modifier = Modifier
@@ -32,19 +33,19 @@ fun MainDetailsScreen(){
                .padding(16.dp)
        ) {
            RestaurantIcon(
-               icon = Icons.Filled.Place, 
+               icon = Icons.Filled.Place,
                modifier = Modifier.padding(
                    vertical = 32.dp
                )
            )
            RestaurantDetails(
-               title = item.title, 
-               description = item.description, 
+               title = state.title,
+               description = state.description,
                modifier = Modifier.padding(bottom = 32.dp),
                Alignment.CenterHorizontally
            )
            Text(text = "More info coming soon")
-           
+
 
        }
     }
@@ -75,7 +76,7 @@ private fun RestaurantDetails(
     modifier: Modifier,
     horizontalAlignment: Alignment.Horizontal = Alignment.Start
 ) {
-    Column( 
+    Column(
         horizontalAlignment = horizontalAlignment,
         modifier = modifier
     ) {
@@ -94,3 +95,4 @@ private fun RestaurantDetails(
         }
     }
 }
+
